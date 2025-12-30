@@ -1,0 +1,16 @@
+# docker-compose.yml
+services:
+  db:
+    image: postgres:16
+    container_name: household-budget-db
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: devpassword
+      POSTGRES_DB: household_budget
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
