@@ -54,5 +54,10 @@ kakeibo-back/
 ├── README.md
 └── tsconfig.json                # TypeScript設定
 
+# ソフトウェア開発ポリシー
+
+- `docs/development-policy.md`: コーディング規約、ブランチ戦略
+- `docs/review-policy.md`: コードレビュー基準、チェックリスト
+
 # 開発ドキュメント
-- docs/
+- `docs/`
