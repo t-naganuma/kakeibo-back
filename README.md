@@ -49,10 +49,10 @@ pnpm install
 docker-compose up -d
 
 # マイグレーションの生成
-pnpm drizzle-kit generate
+pnpm db:generate
 
 # マイグレーションの実行
-pnpm drizzle-kit migrate
+pnpm db:migrate
 ```
 
 ## 開発コマンド
