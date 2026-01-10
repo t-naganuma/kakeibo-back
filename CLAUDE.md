@@ -118,9 +118,6 @@ pnpm cdk synth       # CloudFormationテンプレート生成
 - `hotfix/*`: mainへの即時修正
 - すべてプルリクエスト経由でマージ
 
-### コードレビュー
-- コードレビュー基準は `docs/review-policy.md` を参照
-
 ## ローカル開発環境
 
 ### 前提条件
