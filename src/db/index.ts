@@ -11,12 +11,12 @@ import { Pool } from "pg";
 const connectionString = process.env.DATABASE_URL;
 
 if (!connectionString) {
-  throw new Error("DATABASE_URL environment variable is not set");
+	throw new Error("DATABASE_URL environment variable is not set");
 }
 
 // PostgreSQLコネクションプールを作成
 export const pool = new Pool({
-  connectionString,
+	connectionString,
 });
 
 // Drizzleインスタンスを作成

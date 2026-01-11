@@ -6,13 +6,13 @@
 
 import type { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import type {
-  budgets,
-  categories,
-  groups,
-  invitations,
-  transactionItems,
-  transactions,
-  users,
+	budgets,
+	categories,
+	groups,
+	invitations,
+	transactionItems,
+	transactions,
+	users,
 } from "../db/schema";
 
 // Select Types (データベースから取得する際の型)
