@@ -20,7 +20,9 @@ export const categories = pgTable(
   "categories",
   {
     id: uuid("id").defaultRandom().primaryKey(),
-    groupId: uuid("group_id").references(() => groups.id),
+    groupId: uuid("group_id").references(() => groups.id, {
+      onDelete: "cascade",
+    }),
     name: varchar("name", { length: 50 }).notNull(),
     type: varchar("type", { length: 10 }).notNull(),
     icon: varchar("icon", { length: 50 }),

@@ -5,7 +5,6 @@
  */
 
 import { pgTable, timestamp, unique, uuid, varchar } from "drizzle-orm/pg-core";
-import { groups } from "./groups";
 
 export const users = pgTable(
   "users",
@@ -14,7 +13,7 @@ export const users = pgTable(
     cognitoSub: varchar("cognito_sub", { length: 255 }).notNull(),
     email: varchar("email", { length: 255 }).notNull(),
     displayName: varchar("display_name", { length: 100 }).notNull(),
-    groupId: uuid("group_id").references(() => groups.id),
+    groupId: uuid("group_id"),
     createdAt: timestamp("created_at", { mode: "date", withTimezone: true })
       .notNull()
       .defaultNow(),

@@ -22,12 +22,12 @@ export const transactions = pgTable(
     id: uuid("id").defaultRandom().primaryKey(),
     groupId: uuid("group_id")
       .notNull()
-      .references(() => groups.id),
+      .references(() => groups.id, { onDelete: "cascade" }),
     transactionDate: date("transaction_date", { mode: "date" }).notNull(),
     description: varchar("description", { length: 200 }),
-    createdBy: uuid("created_by")
-      .notNull()
-      .references(() => users.id),
+    createdBy: uuid("created_by").references(() => users.id, {
+      onDelete: "set null",
+    }),
     createdAt: timestamp("created_at", { mode: "date", withTimezone: true })
       .notNull()
       .defaultNow(),

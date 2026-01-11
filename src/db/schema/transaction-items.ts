@@ -25,7 +25,7 @@ export const transactionItems = pgTable(
       .references(() => transactions.id, { onDelete: "cascade" }),
     categoryId: uuid("category_id")
       .notNull()
-      .references(() => categories.id),
+      .references(() => categories.id, { onDelete: "restrict" }),
     amount: integer("amount").notNull(),
     memo: varchar("memo", { length: 200 }),
     createdAt: timestamp("created_at", { mode: "date", withTimezone: true })
