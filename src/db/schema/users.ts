@@ -4,10 +4,11 @@
  * ユーザー情報を管理するテーブル。
  */
 
+import type { PgTableWithColumns } from "drizzle-orm/pg-core";
 import { pgTable, timestamp, unique, uuid, varchar } from "drizzle-orm/pg-core";
 import { groups } from "./groups";
 
-export const users = pgTable(
+export const users: PgTableWithColumns<any> = pgTable(
   "users",
   {
     id: uuid("id").defaultRandom().primaryKey(),

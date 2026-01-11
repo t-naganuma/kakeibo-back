@@ -5,10 +5,11 @@
  * 家族やルームメイトなどで収支を共有するためのグループ。
  */
 
+import type { PgTableWithColumns } from "drizzle-orm/pg-core";
 import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { users } from "./users";
 
-export const groups = pgTable("groups", {
+export const groups: PgTableWithColumns<any> = pgTable("groups", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: varchar("name", { length: 100 }).notNull(),
   ownerId: uuid("owner_id")
