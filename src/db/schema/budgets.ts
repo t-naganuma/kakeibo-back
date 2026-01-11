@@ -14,7 +14,7 @@ export const budgets = pgTable(
     id: uuid("id").defaultRandom().primaryKey(),
     groupId: uuid("group_id")
       .notNull()
-      .references(() => groups.id),
+      .references(() => groups.id, { onDelete: "cascade" }),
     year: integer("year"),
     month: integer("month"),
     amount: integer("amount").notNull(),

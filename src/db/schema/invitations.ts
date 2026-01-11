@@ -22,12 +22,14 @@ export const invitations = pgTable(
     id: uuid("id").defaultRandom().primaryKey(),
     groupId: uuid("group_id")
       .notNull()
-      .references(() => groups.id),
+      .references(() => groups.id, { onDelete: "cascade" }),
     code: varchar("code", { length: 8 }).notNull(),
-    createdBy: uuid("created_by")
-      .notNull()
-      .references(() => users.id),
-    usedBy: uuid("used_by").references(() => users.id),
+    createdBy: uuid("created_by").references(() => users.id, {
+      onDelete: "set null",
+    }),
+    usedBy: uuid("used_by").references(() => users.id, {
+      onDelete: "set null",
+    }),
     usedAt: timestamp("used_at", { mode: "date", withTimezone: true }),
     expiresAt: timestamp("expires_at", {
       mode: "date",
