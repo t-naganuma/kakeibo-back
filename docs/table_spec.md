@@ -93,8 +93,8 @@
 |----------|-----|------|------|
 | id | UUID | PK | 主キー |
 | group_id | UUID | FK → groups.id, NOT NULL | 所属グループ |
-| year | INT | NULL | 年（null=デフォルト） |
-| month | INT | NULL | 月（null=デフォルト） |
+| year | INT | NULL | 年 |
+| month | INT | NULL | 月 |
 | amount | INT | NOT NULL | 予算額（円） |
 | created_at | TIMESTAMP | NOT NULL | 作成日時 |
 | updated_at | TIMESTAMP | NOT NULL | 更新日時 |
@@ -107,11 +107,10 @@
 
 ### 備考
 
-- `year`と`month`が両方NULLの場合、そのグループのデフォルト予算として機能
-- デフォルト予算は、特定の年月に予算が設定されていない場合に使用される
+- 1グループ内で同じ `(year, month)` の組み合わせは1つのみ登録可能（UNIQUE制約）
 - `month`は1〜12の範囲で設定（アプリケーションレベルで検証）
 - `amount`は円単位で格納（負の値は許可しない）
-- 同一グループ内で同じ年月の組み合わせは一つのみ登録可能
+- `year`と`month`はNULL許可（運用上、アプリケーションレベルで制御）
 
 ---
 
