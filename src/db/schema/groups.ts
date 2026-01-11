@@ -6,11 +6,14 @@
  */
 
 import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { users } from "./users";
 
 export const groups = pgTable("groups", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: varchar("name", { length: 100 }).notNull(),
-  ownerId: uuid("owner_id").notNull(),
+  ownerId: uuid("owner_id")
+    .notNull()
+    .references(() => users.id),
   createdAt: timestamp("created_at", { mode: "date", withTimezone: true })
     .notNull()
     .defaultNow(),
