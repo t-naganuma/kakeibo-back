@@ -6,14 +6,24 @@
 
 import { eq, isNull, or } from "drizzle-orm";
 import { Hono } from "hono";
+import * as v from "valibot";
 import { db } from "../../db";
 import { categories } from "../../db/schema";
 
 const app = new Hono();
 
-// UUID形式の正規表現
-const UUID_REGEX =
-	/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+// UUID検証用のvalibotスキーマ
+const uuidSchema = v.pipe(v.string(), v.uuid());
+
+/**
+ * UUIDの形式を検証する
+ * @param value 検証する文字列
+ * @returns 有効なUUIDの場合はtrue
+ */
+const isValidUuid = (value: string): boolean => {
+	const result = v.safeParse(uuidSchema, value);
+	return result.success;
+};
 
 // カテゴリー専用エラーハンドリング
 app.onError((err, c) => {
@@ -32,7 +42,7 @@ app.get("/", async (c) => {
 	const groupId = c.req.query("groupId");
 
 	// groupIdが指定されている場合、UUID形式を検証
-	if (groupId && !UUID_REGEX.test(groupId)) {
+	if (groupId && !isValidUuid(groupId)) {
 		return c.json({ error: "Invalid groupId format" }, 400);
 	}
 
