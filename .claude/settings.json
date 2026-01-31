@@ -6,8 +6,8 @@
 			"Bash(gh pr diff)",
 			"Bash(gh pr checks)",
 			"Bash(gh run view)",
-			"Bash(git add)",
-			"Bash(git commit -m *)",
+			"Bash(git add *)",
+			"Bash(git commit *)",
 			"Bash(pnpm:*)",
 			"Read(./)",
 			"Edit(./)"
