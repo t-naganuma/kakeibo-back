@@ -1,26 +1,29 @@
 {
-	"permissions": {
-		"allow": [
-			"Bash(gh pr list)",
-			"Bash(gh pr view)",
-			"Bash(gh pr diff)",
-			"Bash(gh pr checks)",
-			"Bash(gh run view)",
-			"Bash(git add *)",
-			"Bash(git commit *)",
-			"Bash(pnpm:*)",
-			"Read(./)",
-			"Edit(./)"
-		],
-		"deny": [
-			"Read(.env*)",
-			"Edit(.env*)",
-			"Read(**/.env*)",
-			"Read(.config/gh/hosts.yml)",
-			"Read(~/.ssh/*)",
-			"Read(~/.aws/*)"
-		]
-	},
-	"language": "japanese",
-	"alwaysThinkingEnabled": true
+  "permissions": {
+    "allow": [
+      "Bash(gh pr list)",
+      "Bash(gh pr view)",
+      "Bash(gh pr diff)",
+      "Bash(gh pr checks)",
+      "Bash(gh run view)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(pnpm:*)",
+      "Read(./)",
+      "Edit(./)"
+    ],
+    "deny": [
+      "Read(.env*)",
+      "Edit(.env*)",
+      "Read(**/.env*)",
+      "Read(.config/gh/hosts.yml)",
+      "Read(~/.ssh/*)",
+      "Read(~/.aws/*)"
+    ]
+  },
+  "language": "japanese",
+  "alwaysThinkingEnabled": true,
+  "enabledPlugins": {
+    "example-skills@anthropic-agent-skills": true
+  }
 }
