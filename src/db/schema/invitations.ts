@@ -6,42 +6,42 @@
  */
 
 import {
-  index,
-  pgTable,
-  timestamp,
-  unique,
-  uuid,
-  varchar,
+	index,
+	pgTable,
+	timestamp,
+	unique,
+	uuid,
+	varchar,
 } from "drizzle-orm/pg-core";
 import { groups } from "./groups";
 import { users } from "./users";
 
 export const invitations = pgTable(
-  "invitations",
-  {
-    id: uuid("id").defaultRandom().primaryKey(),
-    groupId: uuid("group_id")
-      .notNull()
-      .references(() => groups.id, { onDelete: "cascade" }),
-    code: varchar("code", { length: 8 }).notNull(),
-    createdBy: uuid("created_by").references(() => users.id, {
-      onDelete: "set null",
-    }),
-    usedBy: uuid("used_by").references(() => users.id, {
-      onDelete: "set null",
-    }),
-    usedAt: timestamp("used_at", { mode: "date", withTimezone: true }),
-    expiresAt: timestamp("expires_at", {
-      mode: "date",
-      withTimezone: true,
-    }).notNull(),
-    createdAt: timestamp("created_at", { mode: "date", withTimezone: true })
-      .notNull()
-      .defaultNow(),
-  },
-  (table) => [
-    unique("invitation_code_idx").on(table.code),
-    index("invitation_group_history_idx").on(table.groupId, table.createdAt),
-    index("invitation_expires_idx").on(table.expiresAt),
-  ]
+	"invitations",
+	{
+		id: uuid("id").defaultRandom().primaryKey(),
+		groupId: uuid("group_id")
+			.notNull()
+			.references(() => groups.id, { onDelete: "cascade" }),
+		code: varchar("code", { length: 8 }).notNull(),
+		createdBy: uuid("created_by").references(() => users.id, {
+			onDelete: "set null",
+		}),
+		usedBy: uuid("used_by").references(() => users.id, {
+			onDelete: "set null",
+		}),
+		usedAt: timestamp("used_at", { mode: "date", withTimezone: true }),
+		expiresAt: timestamp("expires_at", {
+			mode: "date",
+			withTimezone: true,
+		}).notNull(),
+		createdAt: timestamp("created_at", { mode: "date", withTimezone: true })
+			.notNull()
+			.defaultNow(),
+	},
+	(table) => [
+		unique("invitation_code_idx").on(table.code),
+		index("invitation_group_history_idx").on(table.groupId, table.createdAt),
+		index("invitation_expires_idx").on(table.expiresAt),
+	],
 );
