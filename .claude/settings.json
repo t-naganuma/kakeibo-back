@@ -6,6 +6,8 @@
 			"Bash(gh pr diff)",
 			"Bash(gh pr checks)",
 			"Bash(gh run view)",
+			"Bash(git add *)",
+			"Bash(git commit *)",
 			"Bash(pnpm:*)",
 			"Read(./)",
 			"Edit(./)"
@@ -17,29 +19,6 @@
 			"Read(.config/gh/hosts.yml)",
 			"Read(~/.ssh/*)",
 			"Read(~/.aws/*)"
-		]
-	},
-	"hooks": {
-		"Notification": [
-			{
-				"matcher": "idle_prompt",
-				"hooks": [
-					{
-						"type": "command",
-						"command": "echo \"[$(date)] idle_prompt hook triggered\" >> /tmp/claude-hooks.log && ~/.zsh/claude-notify.sh '入力を待っています'"
-					}
-				]
-			}
-		],
-		"Stop": [
-			{
-				"hooks": [
-					{
-						"type": "command",
-						"command": "echo \"[$(date)] Stop hook triggered\" >> /tmp/claude-hooks.log && ~/.zsh/claude-notify.sh 'タスクが完了しました'"
-					}
-				]
-			}
 		]
 	},
 	"language": "japanese",
