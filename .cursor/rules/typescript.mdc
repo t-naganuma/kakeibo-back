@@ -1,0 +1,58 @@
+---
+description: kakeibo-back の TypeScript 方針（型安全・Biome・プロジェクト慣習）
+globs:
+  - "src/**/*.ts"
+  - "test/**/*.ts"
+  - "lib/**/*.ts"
+  - "bin/**/*.ts"
+  - "lambda/**/*.ts"
+  - "*.ts"
+alwaysApply: false
+---
+# TypeScript
+
+詳細なスタック・DB・コマンドは `AGENTS.md` を参照。
+
+## 型
+
+- `strict` 前提。`any` は使わない。不明な値は `unknown` にし、使用箇所で絞り込む。
+- 外部入力・クエリは Valibot 等で検証してから使う（既存ルートの `valibot` パターンに合わせる）。
+- 関数が引数を**変更しない**ときは、配列は `readonly T[]`（または `ReadonlyArray<T>`）、オブジェクトは `Readonly<SomeType>`（またはプロパティごとに `readonly`）として宣言する。契約が明確になり、実装側の誤ったミュータブル操作を型で防げる。内部で破壊的に更新する関数だけ、ミュータブルな型を使う。
+
+```typescript
+function total(values: readonly number[]): number {
+	return values.reduce((a, b) => a + b, 0);
+}
+
+type User = { id: string; name: string };
+function label(u: Readonly<User>): string {
+	return `${u.name} (${u.id})`;
+}
+```
+
+```typescript
+// ❌ BAD
+function handle(body: any) {
+	return body.id;
+}
+
+// ✅ GOOD
+function handle(body: unknown) {
+	if (typeof body === "object" && body !== null && "id" in body) {
+		const id = (body as { id: string }).id;
+		return id;
+	}
+	throw new Error("Invalid body");
+}
+```
+
+## スタイル（Biome）
+
+- インデントはタブ、文字列はダブルクォート（`biome.json` に従う）。
+- 保存前に `pnpm check` で問題ないか確認する。
+
+## このリポジトリ特有
+
+- Drizzle のマイグレーションなど**自動生成ファイルは手編集しない**（`pnpm db:generate` で再生成）。
+- 環境変数は `.env` をエージェントが編集・参照しない。コードでは `process.env` のみ。
+- 既存の `src/` の import パス・命名・エラーハンドリングの書き方に揃える。
